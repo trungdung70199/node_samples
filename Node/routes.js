@@ -17,8 +17,8 @@ router.get('/profile', (req, res) => {
 })
 
 // From ID
-router.get('/item:id', (req, res) => {
-    const id = req.params.id
+router.get('/item:idt id = req.p', (req, res) => {
+    consarams.id
     var message = "Item ID is" + id
 })
 
