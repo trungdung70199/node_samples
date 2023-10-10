@@ -1,29 +1,34 @@
-// Express Module
+// Express MVCフレームワーク（Webフレームワーク）
+// expressモジュール読み込み
 const express = require('express')
-// dotenv module
+// dotenvモジュール読み込み
 const dotenv = require('dotenv')
-// setting
+// routesモジュール読み込み
+const routes = require('./routes')
+
+//設定読み込み
 dotenv.config()
 const HOST = process.env.HOST
 const PORT = process.env.PORT
 
-console.log(HOST)
-console.log(PORT)
-
-// Web server
+//Webサーバ作成
 const app = express()
 
-// Routing
-app.get('/', (req, res) => {
-    console.log(req.body)
-    console.log(req.url)
-    console.log(req.query)
-    // From server's request
-    res.send('Hello!!!')
-})
+// Middlewareの利用
+// staticコンテンツの設定
+// publicフォルダをWebルートとしてブラウザからアクセスできるようにする
+app.use(express.static(__dirname + '/public'))
 
+// URLエンコード（マルチバイト文字の対策）
+app.use(express.urlencoded({ extended: true }))
+
+// Routerの利用
+app.use(routes)
+
+
+// サーバー待機（たいき） wait 
 app.listen(PORT, HOST, () => {
     console.log(HOST)
     console.log(PORT)
-    console.log('wait....')
+    console.log('wait...')
 })
