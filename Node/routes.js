@@ -1,43 +1,7 @@
-// Express module
+// Expressモジュール読み込み
 const express = require('express')
-
-// Use Route
-const route = express.Router()
-// routing URL
-router.get('/', (req, res) => {
-    console.log(req.body)
-    console.log(req.url)
-    console.log(req.query)
-
-    res.send('Top page')
-})
-
-router.get('/profile', (req, res) => {
-    res.send('Profile Page')
-})
-
-// From ID
-router.get('/item:idt id = req.p', (req, res) => {
-    consarams.id
-    var message = "Item ID is" + id
-})
-
-router.post('/auth', (req, res) => {
-    var loginName = req.body.Login_name
-    var password = req.body.password
-
-    var message = "Can not login"
-    if (loginName == process.env.LOGIN_NAME
-        && password == process.env.PASSWORD) {
-            message = "Can login"
-        }
-        console.log(loginName)
-        console.log(password)
-        
-        res.send(message)
-})
-module.exports = router// Expressモジュール読み込み
-const express = require('express')
+// models/itemモジュール読み込み
+const item = require('./models/item')
 
 // Routerの利用
 const router = express.Router()
@@ -52,6 +16,14 @@ router.get('/', (req, res) => {
 
 router.get('/profile', (req, res) => {
     res.send('プロフィールページ')
+})
+
+// 商品IDから商品取得(URLパラメータ)（「id」をプレースホルダー）
+router.get('/item/:id', (req, res) => {
+    const id = req.params.id
+    var selectItem = item.find(id)
+    var message = "商品名:" + selectItem.name
+    res.send(message)
 })
 
 // ログイン認証（POST）
