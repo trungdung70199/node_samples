@@ -6,6 +6,7 @@ const item = require('./models/item')
 // Routerの利用
 const router = express.Router()
 
+// トップページ
 router.get('/', (req, res) => {
     console.log(req.body)
     console.log(req.url)
@@ -35,8 +36,8 @@ router.get('/profile', (req, res) => {
 // 商品一覧（しょうひんいちらん）
 router.get('/item/', (req, res) => {
     //データをすべて取得
-    var data = { 
-        items: item.get() 
+    var data = {
+        items: item.get()
     }
     // views/item/index.ejs に dataを渡して表示
     res.render('item/index', data)
@@ -47,8 +48,8 @@ router.get('/item/', (req, res) => {
 router.get('/item/:id', (req, res) => {
     const id = req.params.id
     // データを検索して用意
-    var data = { 
-        item: item.find(id) 
+    var data = {
+        item: item.find(id)
     }
     // views/item/detail.ejs に dataを渡して表示
     res.render('item/detail', data)
