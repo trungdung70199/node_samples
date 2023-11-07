@@ -1,3 +1,5 @@
+// models/user.js モジュールを読み込む
+const user = require('../models/user')
 
 // ログイントップ
 exports.index =  (req, res) => {
@@ -7,16 +9,30 @@ exports.index =  (req, res) => {
 
 // 認証処理
 exports.auth = (req, res) => {
-    var loginName = req.body.login_name
+    var email = req.body.login_name
     var password = req.body.password
 
-    var message = "ログイン失敗..."
-    if (loginName == process.env.LOGIN_NAME
-        && password == process.env.PASSWORD) {
-        message = "ログイン成功！"
-    }
-    console.log(loginName)
-    console.log(password)
+    var authUser = user.auth(email, password);
+    // console.log(authUser)
+    if (authUser) {
+        // 認証が成功したらユーザ情報をセッションに保存
+        req.session.authUser = authUser
 
-    res.send(message)
+        //ユーザトップにリダイレクト
+        res.redirect('/user')
+    } else {
+        // 認証が失敗したら、ログインにリダイレクト
+        res.redirect('/login')
+    }
+
+    // var loginName = req.body.login_name
+    // var password = req.body.password
+    // var message = "ログイン失敗..."
+    // if (loginName == process.env.LOGIN_NAME
+    //     && password == process.env.PASSWORD) {
+    //     message = "ログイン成功！"
+    // }
+    // console.log(loginName)
+    // console.log(password)
+    // res.send(message)
 }
