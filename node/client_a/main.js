@@ -1,19 +1,21 @@
-// const dotenv = require('dotenv');
 const fs = require('fs');
-const dotenv = require('dotenv');
-const { create } = require('./message');
+const dotenv = require('dotenv')
 
-// read .env
-dotenv.config();
+dotenv.config()
+const message = require('./message')
 
-// take name and number from .env
-const name = process.env.NAME;
-const number = process.env.NUMBER;
+// .env
+const NAME = process.env.NAME
+const NUMBER = process.env.NUMBER
 
-// message
-const message = create(name, number);
+// messageのcreate() 
+const result = message.create(NAME, NUMBER)
+console.log(result)
 
-// result
-fs.writeFileSync('result.txt', message);
-
-console.log('result.txt に結果を書き込みました。');
+fs.writeFile('result.txt', result, (err) => {
+  if (err) {
+    console.error('Error...', err);
+    return;
+  }
+  console.log('Success!');
+});

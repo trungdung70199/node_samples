@@ -19,7 +19,12 @@ console.log("Database Info", db_info)
 const con = mysql.createConnection(db_info);
 con.connect((error) => {
     // if have error
-    if(error) throw error;
-    console.log("DB Connect!!!")
+    // if(error) throw error;
+    // console.log("DB Connect!!!")
+    if (error) {
+        console.log('DB Error!')
+    } else {
+        console.log('DB Connect!')
+    }
 })
 con.end();
