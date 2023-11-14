@@ -1,30 +1,29 @@
 const mysql = require('mysql2');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 dotenv.config()
 
-console.log("Database Info")
-console.log("DB NAME" + process.env.DB_NAME)
-console.log("Host:" + process.env.DB_HOST)
-
-var db_info = {
+// mysqlの接続設定
+const db_info = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    user: process.env.DB_NAME,
+    user: process.env.DB_USER,
     port: process.env.DB_PORT,
     password: process.env.DB_PASS,
 }
 console.log("Database Info", db_info)
 
-// DB connect
-const con = mysql.createConnection(db_info);
+//DB接続
+const con = mysql.createConnection(db_info)
 con.connect((error) => {
-    // if have error
-    // if(error) throw error;
-    // console.log("DB Connect!!!")
     if (error) {
-        console.log('DB Error!')
+        //エラーの場合
+        console.log('DB Error!!!')
     } else {
-        console.log('DB Connect!')
+        //成功の場合
+        console.log("DB Connect!!!");
+        var sql = "INSERT INTO tweets (message, user_id) VALUE ('Node.jsから書き込み', 1);";
+        console.log(sql)
+        con.query(sql);
+        con.end();
     }
 })
-con.end();
